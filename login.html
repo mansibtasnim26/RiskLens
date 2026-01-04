@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>RiskLens | Login</title>
+    <link rel="stylesheet" href="new_style.css">
+</head>
+<body>
+    <div class="main-container">
+        <div class="left-panel">
+            <div class="overlay-text">
+                <div class="logo-box">RL</div>
+                <h2>RiskLens</h2>
+                <p>Login to view area-wise crime statistics.</p>
+            </div>
+        </div>
+        <div class="right-panel">
+            <div class="form-content">
+                <h1>Login</h1>
+                <p class="subtitle">Don't have an account? <a href="signup.html">Sign up</a></p>
+                
+                <form action="login.php" method="POST">
+                    <div class="input-group">
+                        <label>Email Address</label>
+                        <input type="email" name="email" placeholder="email@risklens.com" required>
+                    </div>
+                    <div class="input-group">
+                        <label>Password</label>
+                        <input type="password" name="password" placeholder="••••••••" required>
+                    </div>
+                    <button type="submit" class="primary-btn">Login</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script>
+    const urlParams = new URLSearchParams(window.location.search);
+    
+    if (urlParams.has('status')) {
+        const status = urlParams.get('status');
+        if (status === 'success') {
+            alert("Account created successfully! Please log in.");
+        } else if (status === 'error') {
+            alert("Invalid email or password. Please try again.");
+        }
+    }
+</script>
+</body>
+</html>
