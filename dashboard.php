@@ -329,28 +329,34 @@ $stats_result = mysqli_query($conn, $stats_query);
 
         <script>
             // Initialize map
+            // Initialize map
             var map = L.map('map').setView([23.6850, 90.3563], 7);
 
-            // Add Tiles
-            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                attribution: '&copy; OpenStreetMap contributors'
+            // Add Dark Mode Tiles
+            L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+                attribution: '&copy; OpenStreetMap contributors &copy; CARTO'
             }).addTo(map);
-            // Get the PHP data from the block we explained earlier
+
+            // Get the PHP data
             var heatData = <?php echo $json_locations; ?>;
 
-            // Generate Heatmap
-            var heat = L.heatLayer(addressPoints, {
-                radius: 25,
-                blur: 15,
-                maxZoom: 17,
-                gradient: {
-                    0.2: 'blue',
-                    0.4: 'cyan',
-                    0.6: 'lime',
-                    0.8: 'yellow',
-                    1.0: 'red' // Highest intensity will be Bright Red
-                }
-            }).addTo(map);
+            // Generate Heatmap with "Glow" settings
+            if (heatData.length > 0) {
+                var heat = L.heatLayer(heatData, {
+                    radius: 35, // Increased for better overlap
+                    blur: 25, // Increased for "glow" effect
+                    maxZoom: 10,
+                    gradient: {
+                        0.2: 'blue',
+                        0.4: 'cyan',
+                        0.6: 'lime',
+                        0.8: 'yellow',
+                        1.0: 'red'
+                    }
+                }).addTo(map);
+            } else {
+                console.log("No heatmap data found.");
+            }
         </script>
 
     </div>
